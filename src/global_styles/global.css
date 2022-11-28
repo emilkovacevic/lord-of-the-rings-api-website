@@ -1,34 +1,47 @@
 :root {
-  --body-background: white;
+  --body-background: rgb(231, 227, 227);
   --page-max-width: 960px;
   --text-color: black;
+  --link-color: blue;
 
-  --nav-background: rgb(196, 196, 196);
+  --nav-background: rgb(255, 255, 255);
   --mobile-nav-menu-background: rgba(161, 161, 161, 0.466);
   --mobile-nav-menu-items-background: black;
 
   --footer-background: rgb(196, 196, 196);
 
-  --article-width: 100%;
-  --article-margin: 10px 0;
-  --article-background: rgb(218, 218, 218);
-  --article-heading-color: rgb(58, 58, 58);
-  --article-heading-font-size: 24px;
-  --article-heading-margin: 0 0 24px 0;
-  --article-image-margin: 0 0 15px 15px;
-  --article-image-width: 100%;
-  --article-text-max-lines: 6;
-  --article-paragraph-line-height: 1.5em;
-  --article-paragraph-letter-spacing: 0.025em;
-  --article-link-margin: 10px 0 0 0;
+  --character-card-width: 100%;
+  --character-card-margin: 10px 0;
+  --character-card-background: rgb(255, 255, 255);
+  --character-card-box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  --character-card-heading-color: rgb(58, 58, 58);
+  --character-card-heading-font-size: 18px;
+  --character-card-heading-margin: 0 0 24px 0;
+  --character-card-text-max-lines: 6;
+  --character-card-border-radius: 15px 25px;
+  --hover-character-card-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  --character-modal-background: red;
+
+  --book-size-height: 450px;
+  --book-size-width: 300px;
+  --book-background: rgb(163, 92, 34);
+  --book-text-color: white;
+  --book-text-font-size: 24px;
 }
 
 @media (min-width: 960px) {
   :root {
-    --article-margin: 0.5em;
-    --article-width: 48.335%;
-    --article-background: rgb(218, 218, 218);
-    --article-image-margin: 0 auto 1.5em;
-    --article-image-width: 50%;
+    --character-card-heading-font-size: 24px;
+    --character-card-margin: 0.5em;
+    --character-card-width: 48.335%;
+    --character-card-image-margin: 0 auto 1.5em;
+  }
+}
+
+@media (min-width: 1320px) {
+  :root {
+    --page-max-width: 1000px;
+    --character-card-width: 30%;
   }
 }

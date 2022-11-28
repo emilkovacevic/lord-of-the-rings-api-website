@@ -7,8 +7,9 @@ import styled from "styled-components";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
@@ -43,12 +44,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/post/:id",
-        element: <Home />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
+        path: "/about",
+        element: <About />,
       },
     ],
   },

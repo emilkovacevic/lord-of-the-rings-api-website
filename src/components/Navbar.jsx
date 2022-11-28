@@ -7,6 +7,7 @@ import { BiMenu } from "react-icons/bi";
 const Nav = styled.nav`
   position: ${(props) => (props.scrollNavPosition ? "fixed" : "relative")};
   width: 100%;
+  z-index: 10;
   background: var(--nav-background);
   min-height: 20px;
   padding: 1em 0.5em;
@@ -82,7 +83,7 @@ function Navbar() {
   return (
     <Nav scrollNavPosition={scrollNavPosition}>
       <div className="container">
-        <div>Emil Kovacevic</div>
+        <h1>Lord Of The Rings </h1>
         {mobileMenu ? (
           <MobileMenu
             onClick={() => {
