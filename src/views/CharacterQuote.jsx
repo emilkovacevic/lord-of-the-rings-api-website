@@ -27,24 +27,20 @@ function CharacterModal({ id, setModal }) {
   };
   const headers = {
     Accept: "application/json",
-    Authorization: "Bearer prXVkao8sk4ZbZaueyKy",
+    Authorization: "Bearer prXVkao8sk4ZbZaueyKy"
   };
   const { isLoading, error, data } = useQuery({
     queryFn: () =>
       fetch(`https://the-one-api.dev/v2/character/${id}/quote`, {
-        headers: headers,
-      }).then((res) => res.json()),
+        headers: headers
+      }).then((res) => res.json())
   });
 
   return (
     <Modal>
       {isLoading && <div>Loading Quote</div>}
       {error && <div>{error.message}</div>}
-      {data?.docs[0] ? (
-        <div>{data.docs[0]}</div>
-      ) : (
-        <h4>quote is not available</h4>
-      )}
+      {data?.docs ? <div>{data.docs[0]}</div> : <h4>quote is not available</h4>}
       <div>
         <br />
         <button onClick={handleModal}>Close</button>

@@ -23,11 +23,11 @@
   --hover-character-card-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   --character-modal-background: red;
 
-  --book-size-height: 450px;
-  --book-size-width: 300px;
+  --book-size-height: 250px;
+  --book-size-width: 100px;
   --book-background: rgb(163, 92, 34);
   --book-text-color: white;
-  --book-text-font-size: 24px;
+  --book-text-font-size: 18px;
 }
 
 @media (min-width: 960px) {
@@ -36,6 +36,10 @@
     --character-card-margin: 0.5em;
     --character-card-width: 48.335%;
     --character-card-image-margin: 0 auto 1.5em;
+
+    --book-size-height: 450px;
+    --book-size-width: 300px;
+    --book-text-font-size: 24px;
   }
 }
 

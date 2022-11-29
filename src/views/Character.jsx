@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CharacterQuote from "./CharacterQuote";
 
@@ -39,7 +39,8 @@ const CharacterContainer = styled.article`
       justify-content: space-evenly;
       align-items: center;
     }
-    button {
+    button,
+    a {
       border: none;
       background: var(--character-card-background);
       text-transform: capitalize;
@@ -102,7 +103,7 @@ function Character({ data }) {
           <div className="links">
             {data.wikiUrl ? (
               <div className="link_open-character-card">
-                <a href={data.wikiUrl} target="_blank">
+                <a href={data.wikiUrl} rel="noreferrer" target="_blank">
                   Read more
                 </a>
               </div>

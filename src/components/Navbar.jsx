@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { FaLinkedinIn } from "react-icons/fa";
 import { BiMenu } from "react-icons/bi";
 
 const Nav = styled.nav`
@@ -9,6 +8,7 @@ const Nav = styled.nav`
   width: 100%;
   z-index: 10;
   background: var(--nav-background);
+  border-bottom:2px solid black;
   min-height: 20px;
   padding: 1em 0.5em;
   text-transform: uppercase;
@@ -19,6 +19,9 @@ const Nav = styled.nav`
     justify-content: space-between;
     max-width: var(--page-max-width);
     margin: auto;
+  }
+  h1{
+    font-weight: bold;
   }
   li {
     padding: 10px ;
@@ -54,23 +57,13 @@ const MobileMenu = styled.div`
 `;
 
 function Navbar() {
-  const [nav, setNav] = useState(true);
-  const [mobileMenu, setMobileMenu] = useState(false);
   const [scrollNavPosition, setScrollNavPosition] = useState(false);
-
   const stickNavbar = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
-      windowHeight > 20
-        ? setScrollNavPosition(true)
-        : setScrollNavPosition(false);
+      windowHeight > 20 ? setScrollNavPosition(true) : setScrollNavPosition(false);
     }
   };
-
-  useEffect(() => {
-    const size = window.innerWidth;
-    size > 600 ? setNav(false) : setNav(true);
-  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", stickNavbar);
@@ -84,62 +77,18 @@ function Navbar() {
     <Nav scrollNavPosition={scrollNavPosition}>
       <div className="container">
         <h1>Lord Of The Rings </h1>
-        {mobileMenu ? (
-          <MobileMenu
-            onClick={() => {
-              setMobileMenu(false);
-            }}
-          >
-            <ul>
-              <li>
-                <Link className="link" to="/?cat=home">
-                  <h6>Home</h6>
-                </Link>
-              </li>
-              <li>
-                <Link className="link" to="/?cat=art">
-                  <h6>About</h6>
-                </Link>
-              </li>
-              <li>
-                <Link className="link" to="/?cat=art">
-                  <FaLinkedinIn></FaLinkedinIn>
-                </Link>
-              </li>
-            </ul>
-          </MobileMenu>
-        ) : null}
-        {nav ? (
-          <UL_NavLinks>
-            <li>
-              <button
-                onClick={() => {
-                  setMobileMenu(!mobileMenu);
-                }}
-              >
-                <BiMenu></BiMenu>
-              </button>
-            </li>
-          </UL_NavLinks>
-        ) : (
-          <UL_NavLinks>
-            <li>
-              <Link className="link" to="/?cat=home">
-                <h6>Home</h6>
-              </Link>
-            </li>
-            <li>
-              <Link className="link" to="/?cat=art">
-                <h6>About</h6>
-              </Link>
-            </li>
-            <li>
-              <Link className="link" to="/?cat=art">
-                <FaLinkedinIn></FaLinkedinIn>
-              </Link>
-            </li>
-          </UL_NavLinks>
-        )}
+        <UL_NavLinks>
+          <li>
+            <Link className="link" to="/">
+              <h6>Home</h6>
+            </Link>
+          </li>
+          <li>
+            <Link className="link" to="/about">
+              <h6>About</h6>
+            </Link>
+          </li>
+        </UL_NavLinks>
       </div>
     </Nav>
   );

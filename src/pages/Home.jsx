@@ -1,138 +1,64 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import Character from "../components/Character";
-import Book from "../components/Book";
-import Movie from "../components/Movie";
+import Character from "../views/Character";
+import Book from "../views/Book";
+import Movie from "../views/Movie";
+import Pagination from "../components/Pagination";
+import Spinner from "../components/Spinner";
+import Menu from "../components/Menu";
+import Error from "../components/Error";
 
-const MainPage = styled.div`
+const HomePage = styled.div`
+  position: relative;
   max-width: var(--page-max-width);
-  margin: 40px auto;
-  .characters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .books {
-    display: flex;
-  }
-  .movies {
+  margin: 80px auto 0;
+  padding: 2rem;
+  display: flex;
+  .characters,
+  .books,
+  .movies,
+  .quotes {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
   }
 `;
-
-const DropdownMenu = styled.div`
-  z-index: 5;
-  position: fixed;
-  top: 120px;
-  left: 10px;
-  .dropbtn {
-    background-color: #04aa6d;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-  }
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
-
-  .dropdown-content button {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-  .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-  }
-`;
-
-const Pagination = styled.div`
-  max-width: var(--page-max-width);
-  font-size: 1.2em;
-  margin: 0 35px;
-  display: flex;
-  justify-content: flex-end;
-  button {
-    font-size: 1rem;
-  }
-`;
-
 function Home() {
-  const [querySearchBar, setQuerySearchBar] = useState("quote");
+  const [querySearchBar, setQuerySearchBar] = useState("movie");
   const [page, setPage] = useState(1);
-  const [dropDownMenu, setDropDownMenu] = useState(true);
-  console.log(querySearchBar);
-  const handleQuerySearch = (e) => {
-    e.preventDefault();
-    setQuerySearchBar(e.target.value);
-    console.log(querySearchBar);
-  };
 
   const headers = {
     Accept: "application/json",
-    Authorization: "Bearer prXVkao8sk4ZbZaueyKy",
+    Authorization: "Bearer prXVkao8sk4ZbZaueyKy"
   };
 
   const { isLoading, error, data } = useQuery({
     queryKey: [querySearchBar, page],
     queryFn: () =>
-      fetch(`https://the-one-api.dev/v2/${querySearchBar}`, {
-        headers: headers,
-      }).then((res) => res.json()),
+      fetch(`https://the-one-api.dev/v2/${querySearchBar}?limit=20?page=${page}`, {
+        headers: headers
+      }).then((res) => res.json())
   });
 
-  const styles = {
-    dropdown: {
-      display: dropDownMenu ? "block" : "none",
-      backgroundColor: dropDownMenu ? "#ddd;" : "none",
-    },
-  };
+  if (isLoading) {
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <Error error={error.message} />;
+  }
 
   return (
-    <MainPage>
+    <HomePage>
       {console.log(data)}
-      <DropdownMenu>
-        <div class="dropdown">
-          <button
-            class="dropbtn"
-            onClick={() => setDropDownMenu(!dropDownMenu)}
-          >
-            Select Category
-          </button>
-          <div class="dropdown-content" style={styles.dropdown}>
-            <button value="movie" onClick={handleQuerySearch}>
-              Movies
-            </button>
-            <button value="character" onClick={handleQuerySearch}>
-              Characters
-            </button>
-            <button value="book" onClick={handleQuerySearch}>
-              Books
-            </button>
-          </div>
-        </div>
-      </DropdownMenu>
-      <div className="flex-container">
+      <Menu setQuerySearchBar={setQuerySearchBar} />
+      <div>
         {isLoading && <div>Loading API</div>}
         {error && <div>{error.message}</div>}
         <div className="movies">
@@ -142,48 +68,22 @@ function Home() {
 
         <div className="books">
           {querySearchBar === "book" &&
-            data?.docs.map((item) => <Book item={item} />)}
+            data?.docs.map((item) => <Book key={item._id} item={item} />)}
         </div>
 
         {querySearchBar === "character" && (
           <div>
-            {!isLoading && (
-              <Pagination>
-                <div>
-                  <button onClick={() => setPage((prev) => prev - 1)}>
-                    --Prev
-                  </button>
-                  <span> {page} </span>
-                  <button onClick={() => setPage((prev) => prev + 1)}>
-                    Next++
-                  </button>
-                </div>
-              </Pagination>
-            )}
-
+            {!isLoading && <Pagination page={page} setPage={setPage} />}
             <div className="characters">
               {data?.docs.map((item) => (
                 <Character key={item._id} data={item} />
               ))}
             </div>
-
-            {!isLoading && (
-              <Pagination>
-                <div>
-                  <button onClick={() => setPage((prev) => prev - 1)}>
-                    --Prev
-                  </button>
-                  <span> {page} </span>
-                  <button onClick={() => setPage((prev) => prev + 1)}>
-                    Next++
-                  </button>
-                </div>
-              </Pagination>
-            )}
+            {!isLoading && <Pagination page={page} setPage={setPage} />}
           </div>
         )}
       </div>
-    </MainPage>
+    </HomePage>
   );
 }
 

@@ -21,11 +21,7 @@ function Footer() {
         <div className="container">
           <p>
             API taken from{" "}
-            <a
-              href="https://the-one-api.dev/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://the-one-api.dev/" target="_blank" rel="noopener noreferrer">
               The One API
             </a>
           </p>
@@ -33,11 +29,7 @@ function Footer() {
 
           <p>
             Find me on{" "}
-            <a
-              href="https://github.com/emilkovacevic"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://github.com/emilkovacevic" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
           </p>
